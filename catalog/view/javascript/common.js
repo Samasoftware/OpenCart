@@ -512,3 +512,29 @@ var chain = new Chain();
         });
     }
 })(window.jQuery);
+
+$(document).ready(function () {
+    $('#button-menu').on('click', function (e) {
+        e.preventDefault();
+
+        $('#column-left').toggleClass('active');
+    });
+
+    // Set last page opened on the menu
+    $('#menu a[href]').on('click', function () {
+        sessionStorage.setItem('menu', $(this).attr('href'));
+    });
+
+    if (!sessionStorage.getItem('menu')) {
+        $('#menu #menu-dashboard').addClass('active');
+    } else {
+        // Sets active and open to selected page in the left column menu.
+        $('#menu a[href=\'' + sessionStorage.getItem('menu') + '\']').parent().addClass('active');
+    }
+
+    $('#menu a[href=\'' + sessionStorage.getItem('menu') + '\']').parents('li').children('a').removeClass('collapsed');
+
+    $('#menu a[href=\'' + sessionStorage.getItem('menu') + '\']').parents('ul').addClass('show');
+
+    $('#menu a[href=\'' + sessionStorage.getItem('menu') + '\']').parents('li').addClass('active');
+});
